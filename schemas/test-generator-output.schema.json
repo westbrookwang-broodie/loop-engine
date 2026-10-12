@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Test generator output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["test_strategy", "tests_added_or_modified", "coverage_notes", "not_covered", "test_commands", "qa_scenarios"],
+  "properties": {
+    "test_strategy": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "tests_added_or_modified": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "coverage_notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "not_covered": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "test_commands": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "qa_scenarios": {"type": "array", "items": {"$ref": "#/$defs/scenario"}}
+  },
+  "$defs": {
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scenario", "steps", "expected_result", "priority"],
+      "properties": {
+        "scenario": {"type": "string", "minLength": 1},
+        "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "expected_result": {"type": "string", "minLength": 1},
+        "priority": {"type": "string", "enum": ["P0", "P1", "P2"]}
+      }
+    }
+  }
+}

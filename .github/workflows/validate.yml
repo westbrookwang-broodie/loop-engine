@@ -1,0 +1,30 @@
+name: Validate repository content
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate published content
+        run: python scripts/validate_content.py --root .
+      - name: Run standard library regression tests
+        run: python -m unittest discover -s tests
+      - name: Confirm clean content after tests
+        run: python scripts/validate_content.py --root .

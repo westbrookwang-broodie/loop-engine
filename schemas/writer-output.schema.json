@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writer output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["changed_files", "implementation_summary", "behavior_changes", "risk_notes", "test_recommendations", "needs_review"],
+  "properties": {
+    "changed_files": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "implementation_summary": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "behavior_changes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "risk_notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "test_recommendations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "needs_review": {"type": "boolean", "const": true}
+  }
+}
